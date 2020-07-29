@@ -21,7 +21,6 @@ postgres_db = db_helper.PostgresDB(host=db_parameters['host'],
 random_num = str(random.randint(100, 999))
 
 
-
 @app.route('/', methods=['GET'])
 def health_check():
     return "OK"
