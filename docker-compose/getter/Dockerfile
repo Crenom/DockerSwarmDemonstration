@@ -12,8 +12,8 @@ COPY requirements.txt /app
 
 WORKDIR /app
 
-RUN pip install -r requirements.txt
-RUN chmod 777 boot.sh
+RUN pip install -r requirements.txt && \
+    chmod 777 boot.sh
 
 EXPOSE 5000
 
