@@ -10,7 +10,7 @@ services:
     ports:
       - "5000:5000"
     environment:
-      - HOST=postgres-availability
+      - HOST=postgres
       - PORT=5432
       - DBNAME=test_db
       - USER=testu
