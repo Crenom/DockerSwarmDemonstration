@@ -1,6 +1,3 @@
 psycopg2
 requests
 flask
-zipfile
-bs4
-configparser
