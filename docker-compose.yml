@@ -15,7 +15,7 @@ services:
       - DBNAME=test_db
       - USER=testu
       - PASSWORD=admin
-    restart: always
+    # restart: always
   postgres:
     # https://hub.docker.com/_/postgres
     image: postgres
