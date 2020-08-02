@@ -16,6 +16,19 @@ class PostgresDB(object):
         return psycopg2.connect(dbname=self.dbname, host=self.host, port=self.port,
                                 user=self.user, password=self.password)
 
+    def create_db(self, db_name):
+        conn = self.__get_db_connection__()
+        cursor = conn.cursor()
+
+        try:
+            quarry = f"CREATE DATABASE {db_name};"
+
+            cursor.execute(quarry)
+            conn.commit()
+        finally:
+            cursor.close()
+            conn.close()
+
     # params_arr = [{'param':'date_time', 'type':'timestamp'},...]
     def create_table_if_not_exists(self, table_name, params_arr):
         conn = self.__get_db_connection__()

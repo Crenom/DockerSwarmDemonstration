@@ -65,6 +65,9 @@ def availability():
 
 
 if __name__ == '__main__':
+    # Создаём базу данных
+    postgres_db.create_db(db_parameters['dbname'])
+
     # Создаём общую таблицу
     params_arr = [
         {'param': 'num', 'type': 'text'},
