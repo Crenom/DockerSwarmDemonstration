@@ -23,9 +23,12 @@ random_num = str(random.randint(100, 999))
 
 @app.route('/', methods=['GET'])
 def db_show():
-    sql = f"select date_time, num, string from {db_table} LIMIT 20"
-    result = postgres_db.execute_quarry(sql)
-    return "OK " + str(result)
+    try:
+        sql = f"select date_time, num, string from {db_table} LIMIT 20"
+        result = postgres_db.execute_quarry(sql)
+        return "OK " + str(result)
+    except Exception as e:
+        return "OK with exception "
 
 
 @app.route('/api', methods=['POST'])
