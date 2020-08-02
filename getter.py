@@ -28,7 +28,7 @@ def db_show():
         result = postgres_db.execute_quarry(sql)
         return "OK " + str(result)
     except Exception as e:
-        return "OK with exception "
+        return "OK with exception " + str(e)
 
 
 @app.route('/api', methods=['POST'])
