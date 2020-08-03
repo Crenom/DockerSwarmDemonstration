@@ -1,12 +1,28 @@
+import os
 import random
 from json import dumps
 from time import sleep
 
 import requests
 
-from engine import date_time
+from engine import date_time, logger
 
-service_link = "http://localhost:5000/api"
+log = logger.Logger()
+
+
+def get_env_value(env):
+    try:
+        return os.environ[env]
+    except Exception:
+        log.error(f'Env value "{env}" is empty')
+        return None
+
+
+if os.name == 'posix':  # значит что в контейнере запустили
+    service_link = f"{get_env_value('GETTER')}:5000/api"
+else:
+    # local
+    service_link = "http://localhost:5000/api"
 
 
 def get_random_from_arr(arr):
@@ -27,10 +43,9 @@ def send(link):
 
     try:
         response = requests.post(link, json=json_data, timeout=10)
-        cur_dt = date_time.convert_datetime_to_str(date_time.get_current_local_datetime())
+        cur_dt = date_time.convert_datetime_to_str(date_time.get_current_local_datetime(), format="%d.%m.%Y %H:%M:%S")
 
-        print(cur_dt + ' status_code=' + str(
-            response.status_code) + ' response="' + response.text + '" val="' + str(raw_data["step_time"]) + '"')
+        print(f'{cur_dt} status_code={response.status_code} response="{response.text}"  string="{raw_data["string"]}"')
     except Exception as e:
         print(e)
 

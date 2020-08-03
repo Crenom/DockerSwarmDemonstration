@@ -1,6 +1,7 @@
 import re
 
 import psycopg2
+from psycopg2.extensions import ISOLATION_LEVEL_AUTOCOMMIT
 
 
 class PostgresDB(object):
@@ -17,14 +18,21 @@ class PostgresDB(object):
                                 user=self.user, password=self.password)
 
     def create_db(self, db_name):
-        conn = self.__get_db_connection__()
+        # conn = psycopg2.connect(dbname='postgres', host=self.host, port=self.port,
+        #                         user=self.user, password=self.password)
+
+        conn = psycopg2.connect(user=self.user, password=self.password)
+        conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
+
         cursor = conn.cursor()
 
         try:
             quarry = f"CREATE DATABASE {db_name};"
-
             cursor.execute(quarry)
-            conn.commit()
+            # cursor.execute(quarry)
+            # conn.commit()
+        except BaseException:
+            print("db exists")
         finally:
             cursor.close()
             conn.close()

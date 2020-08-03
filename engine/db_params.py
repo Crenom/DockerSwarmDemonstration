@@ -25,26 +25,14 @@ def get_db_params():
             'user': get_env_value('USER'),
             'password': get_env_value('PASSWORD')
         }
-        # прод для теста
-        # host = '10.1.2.179'
-        # port = '5432'
-        # dbname = 'availability'
-        # user = 'as_db_user'
-        # password = 'al*12345'
     else:
         # local
         db_parameters = {
             'dbname': 'test_db',
             'host': 'localhost',
             'port': '5432',
-            'user': 'testu',
-            'password': 'admin'
+            'user': 'postgres',
+            'password': 'mysecretpassword'
         }
-        # прод для теста
-        # host = '10.1.2.179' #'als-pg-n1'
-        # port = '5432'
-        # dbname = 'availability'
-        # user = 'as_db_user'
-        # password = 'al*12345'
 
     return db_parameters

@@ -1,5 +1,5 @@
 from flask import Flask, request, Response
-from engine import data_formatter, db_helper, db_constants, db_params, logger
+from engine import data_formatter, date_time, db_helper, db_constants, db_params, logger
 import re
 import random
 
@@ -26,7 +26,13 @@ def db_show():
     try:
         sql = f"select date_time, num, string from {db_table} LIMIT 20"
         result = postgres_db.execute_quarry(sql)
-        return "OK " + str(result)
+        show = ''
+        for row in result:
+            str_dt = date_time.convert_datetime_to_str(
+                date_time.conver_utc_to_local(row[0]), format="%d.%m.%Y %H:%M:%S"
+            )
+            show += f'{str_dt} - {row[1]} - {row[2]}<br>'
+        return "OK<br>" + show
     except Exception as e:
         return "OK with exception " + str(e)
 
