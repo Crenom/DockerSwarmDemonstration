@@ -71,7 +71,8 @@ def availability():
 
 
 if __name__ == '__main__':
-    # Создаём базу данных
+    # Создаём базу данных с задержкой
+    date_time.sleep(20)
     postgres_db.create_db(db_parameters['dbname'])
 
     # Создаём общую таблицу
