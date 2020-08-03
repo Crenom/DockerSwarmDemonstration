@@ -21,6 +21,23 @@ postgres_db = db_helper.PostgresDB(host=db_parameters['host'],
 random_num = str(random.randint(100, 999))
 
 
+def prepare_db():
+    # Создаём базу данных с задержкой
+    postgres_db.create_db(db_parameters['dbname'])
+
+    # Создаём общую таблицу
+    params_arr = [
+        {'param': 'num', 'type': 'text'},
+        {'param': 'string', 'type': 'text'},
+        {'param': 'date_time', 'type': 'timestamptz'}
+    ]
+    try:
+        postgres_db.create_table_if_not_exists(db_table,
+                                               params_arr)
+    except Exception as e:
+        log.error(str(e))
+
+
 @app.route('/', methods=['GET'])
 def db_show():
     try:
@@ -34,6 +51,7 @@ def db_show():
             show += f'{str_dt} - {row[1]} - {row[2]}<br>'
         return "OK<br>" + show
     except Exception as e:
+        prepare_db()
         return "OK with exception " + str(e)
 
 
@@ -71,23 +89,8 @@ def availability():
 
 
 if __name__ == '__main__':
-    # Создаём базу данных с задержкой
-    date_time.sleep(60)
-    postgres_db.create_db(db_parameters['dbname'])
-
-    # Создаём общую таблицу
-    params_arr = [
-        {'param': 'num', 'type': 'text'},
-        {'param': 'string', 'type': 'text'},
-        {'param': 'date_time', 'type': 'timestamptz'}
-    ]
-    try:
-        postgres_db.create_table_if_not_exists(db_table,
-                                               params_arr)
-    except Exception as e:
-        log.error(str(e))
+    prepare_db()
 
     # запуск сервиса
-
     # app.run(host='0.0.0.0', port=5001)
     app.run(host='0.0.0.0')
