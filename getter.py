@@ -51,7 +51,6 @@ def db_show():
             show += f'{str_dt} - {row[1]} - {row[2]}<br>'
         return "OK<br>" + show
     except Exception as e:
-        prepare_db()
         return "OK with exception " + str(e)
 
 

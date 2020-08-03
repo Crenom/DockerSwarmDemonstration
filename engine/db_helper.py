@@ -21,7 +21,8 @@ class PostgresDB(object):
         # conn = psycopg2.connect(dbname='postgres', host=self.host, port=self.port,
         #                         user=self.user, password=self.password)
 
-        conn = psycopg2.connect(user=self.user, password=self.password)
+        conn = psycopg2.connect(host=self.host, port=self.port,
+                                user=self.user, password=self.password)
         conn.set_isolation_level(ISOLATION_LEVEL_AUTOCOMMIT)
 
         cursor = conn.cursor()
