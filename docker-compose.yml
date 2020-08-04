@@ -38,5 +38,14 @@ services:
       - "1234:80"
    # volumes:
    #   - pgadminv:/var/lib/pgadmin
+  random_generator:
+    build:
+      context: .
+      dockerfile: docker-compose/random_generator/Dockerfile
+    container_name: random_generator
+    depends_on:
+      - getter
+    environment:
+      - GETTER=getter
 
 # docker-compose down && git pull && docker-compose up -d --build
