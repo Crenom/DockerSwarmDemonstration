@@ -18,13 +18,6 @@ def get_env_value(env):
         return None
 
 
-if os.name == 'posix':  # значит что в контейнере запустили
-    service_link = f"http://{get_env_value('GETTER')}:5000/api"
-else:
-    # local
-    service_link = "http://localhost:5000/api"
-
-
 def get_random_from_arr(arr):
     return arr[random.randrange(len(arr))]
 
@@ -52,6 +45,12 @@ def send(link):
 
 # Генерирует рандомом в бесконечном цикле поток данных для тестирования сервиса
 if __name__ == "__main__":
+    if os.name == 'posix':  # значит что в контейнере запустили
+        service_link = f"http://{get_env_value('GETTER')}:5000/api"
+    else:
+        # local
+        service_link = "http://localhost:5000/api"
+
     while True:
         try:
             send(service_link)
