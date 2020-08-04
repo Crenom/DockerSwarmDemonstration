@@ -6,6 +6,9 @@ services:
       context: .
       dockerfile: docker-compose/getter/Dockerfile
     container_name: getter
+    deploy:
+      mode: replicated
+      replicas: 3
     depends_on:
       - postgres
     ports:
@@ -51,3 +54,9 @@ services:
       - GETTER=getter
 
 # docker-compose down && git pull && docker-compose up -d --build
+
+# чтобы не добавлять образы в репозиторий нужно на каждой ноде загрузить
+# git clone https://github.com/Crenom/DockerSwarmDemonstration.git && cd DockerSwarmDemonstration && docker-compose up -d --build && docker-compose down
+
+# https://docs.docker.com/engine/swarm/stack-deploy/
+# docker stack deploy --compose-file docker-compose.yml stackdemo
