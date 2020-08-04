@@ -41,15 +41,19 @@ def prepare_db():
 @app.route('/', methods=['GET'])
 def db_show():
     try:
-        sql = f"select date_time, num, string from {db_table} LIMIT 20"
-        result = postgres_db.execute_quarry(sql)
-        show = ''
-        for row in result:
-            str_dt = date_time.convert_datetime_to_str(
-                date_time.conver_utc_to_local(row[0]), format="%d.%m.%Y %H:%M:%S"
-            )
-            show += f'{str_dt} - {row[1]} - {row[2]}<br>'
-        return "OK<br>" + show
+        try:
+            sql = f"select date_time, num, string from {db_table} LIMIT 20"
+            result = postgres_db.execute_quarry(sql)
+            show = ''
+            for row in result:
+                str_dt = date_time.convert_datetime_to_str(
+                    date_time.conver_utc_to_local(row[0]), format="%d.%m.%Y %H:%M:%S"
+                )
+                show += f'{str_dt} - {row[1]} - {row[2]}<br>'
+            return "OK<br>" + show
+        except BaseException:
+            prepare_db()
+            return "DB prepared"
     except Exception as e:
         return "OK with exception " + str(e)
 
