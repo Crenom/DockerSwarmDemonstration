@@ -61,7 +61,7 @@ class PostgresDB(object):
     def insert_data_into_db(self, table_name, num, string):
         sql = f"""
             INSERT INTO {table_name}
-            (num, string, date_time)
+            (getter_num, string, date_time)
             VALUES
             ('{num}', '{string}', current_timestamp)
             """

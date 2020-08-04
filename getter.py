@@ -27,7 +27,7 @@ def prepare_db():
 
     # Создаём общую таблицу
     params_arr = [
-        {'param': 'num', 'type': 'text'},
+        {'param': 'getter_num', 'type': 'text'},
         {'param': 'string', 'type': 'text'},
         {'param': 'date_time', 'type': 'timestamptz'}
     ]
@@ -42,7 +42,8 @@ def prepare_db():
 def db_show():
     try:
         try:
-            sql = f"select date_time, num, string from {db_table} LIMIT 20"
+            sql = f"select date_time, getter_num, string from {db_table} " \
+                  f"order by date_time desc LIMIT 20"
             result = postgres_db.execute_quarry(sql)
             show = ''
             for row in result:
