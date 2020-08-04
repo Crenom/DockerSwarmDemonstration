@@ -19,7 +19,7 @@ def get_env_value(env):
 
 
 if os.name == 'posix':  # значит что в контейнере запустили
-    service_link = f"{get_env_value('GETTER')}:5000/api"
+    service_link = f"http://{get_env_value('GETTER')}:5000/api"
 else:
     # local
     service_link = "http://localhost:5000/api"
