@@ -23,7 +23,7 @@ random_num = str(random.randint(100, 999))
 
 def prepare_db():
     # Создаём базу данных с задержкой
-    postgres_db.create_db(db_parameters['dbname'])
+    # postgres_db.create_db(db_parameters['dbname'])
 
     # Создаём общую таблицу
     params_arr = [
@@ -56,6 +56,8 @@ def db_show():
 
 @app.route('/api', methods=['POST'])
 def availability():
+    prepare_db()
+
     try:
         content_type = request.headers['Content-Type']
     except Exception as e:
@@ -88,7 +90,7 @@ def availability():
 
 
 if __name__ == '__main__':
-    prepare_db()
+    # prepare_db()
 
     # запуск сервиса
     # app.run(host='0.0.0.0', port=5001)

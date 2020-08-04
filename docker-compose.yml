@@ -12,7 +12,7 @@ services:
     environment:
       - HOST=postgres
       - PORT=5432
-      - DBNAME=test_db
+      - DBNAME=postgres
       - USER=postgres
       - PASSWORD=mysecretpassword
     # restart: always
