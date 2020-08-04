@@ -1,6 +1,7 @@
 version: "3"
 services:
   getter:
+    image: getter
     build:
       context: .
       dockerfile: docker-compose/getter/Dockerfile
@@ -39,6 +40,7 @@ services:
    # volumes:
    #   - pgadminv:/var/lib/pgadmin
   random_generator:
+    image: random_generator
     build:
       context: .
       dockerfile: docker-compose/random_generator/Dockerfile
